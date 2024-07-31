@@ -1,6 +1,6 @@
 const express = require('express');
 const passport = require('passport');
-const { register, login, token, logout } = require('../controllers/authController');
+const { register, login, token, logout, verifyEmail,requestPasswordReset, resetPassword  } = require('../controllers/authController');
 const { authenticateToken, checkRole, authLimiter } = require('../middlewares/authMiddleware');
 
 const router = express.Router();
@@ -9,6 +9,10 @@ router.post('/register', register);
 router.post('/login', authLimiter, login);
 router.post('/token', token);
 router.post('/logout', logout);
+router.post('/verify-email', verifyEmail);
+router.post('/request-password-reset', requestPasswordReset);
+router.post('/reset-password', resetPassword);
+
 
 router.get('/auth/google',
     passport.authenticate('google', { scope: ['email', 'profile'] })
